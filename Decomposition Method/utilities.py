@@ -112,3 +112,45 @@ def minimize(X_Train, Y_Train, C, gamma, kern,qu):#qu is the dimension of the wo
     
     result = { 'b_opt': b_opt, 'lamda': lamda,'kern':kern}    
     return result 
+
+
+def train_predict(X_Train, Y_Train, gamma, results):    
+    X = X_Train.T
+    kern, lamda, b_opt = results['kern'], results['lamda'], results['b_opt']
+    
+    if kern == 'gaussian':
+        kernel = Gaussian_kernel(X, X, gamma)
+    if kern == 'polynomial':
+        kernel = Polinomial_kernel(X, X, gamma)
+        
+    # DECISION FUNCTION
+    pred = np.sign(np.sum(Y_Train.reshape(-1,1) * lamda * kernel, axis=0)
+                    + b_opt).reshape(-1,1)
+    
+    #Confusion matrix 
+    ConMatrix = confusion_matrix(Y_Train.reshape(-1,1), pred)
+    #Accuracy
+    acc= accuracy_score(Y_Train.reshape(-1,1), pred)
+    
+    return pred, ConMatrix, acc
+
+
+def test_predict(X_Train, Y_Train ,X_Test, Y_Test, gamma, results):    
+    X = X_Train.T
+    kern, lamda, b_opt = results['kern'], results['lamda'], results['b_opt']
+    
+    if kern == 'gaussian':
+        kernel = Gaussian_kernel(X, X_Test.T, gamma)
+    if kern == 'polynomial':
+        kernel = Polinomial_kernel(X, X_Test.T, gamma)
+        
+    # DECISION FUNCTION
+    pred = np.sign(np.sum(Y_Train.reshape(-1,1) * lamda * kernel, axis=0)
+                    + b_opt).reshape(-1,1)
+    
+    #Confusion matrix 
+    ConMatrix = confusion_matrix(Y_Test.reshape(-1,1), pred)
+    #Accuracy
+    acc = accuracy_score(Y_Test.reshape(-1,1), pred)
+    
+    return pred, ConMatrix, acc
