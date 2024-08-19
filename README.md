@@ -1,15 +1,18 @@
 # SVM
 
-In this project MultiLayer Perceptron (MLP) and Radial Basis Function (RBF) neural networks for 2D function regression are implemented from scratch. For the RBF a Gaussian Kernel was employed.
+In this project are implemented different optimization methods for training Support Vector
+Machines (supervised learning) in order to solve a classification problem that distinguishes between images of handwritten digits from the MNIST database.
 
 ## Description
 
-For these network, three different optimization techniques are tested:
+For the SVMs, three different optimization techniques are tested:
  - Full Minimization
- - Two blocks method
- - Decomposition method (only MLP)
+ - Decomposition method
+ - Most Violating Pair Decomposition
 
 For each method a detailed explanation is provided in the sections below.
+
+In this project is also implemented a multiclass SVM using the "One Against One” procedure (OAO).
 
 ### Target problem
 
@@ -116,16 +119,6 @@ pip install -r requirements.txt
 ```
 python main.py
 ```
-## Data 
-
-### Data format
-
-Here, input data are not provided but is important to pass as input a CSV file with the following format:
-
- - X1 : input variable first dimension 
- - X2 : input variable second dimension
- - Y  : output variable
-
 
 ## Authors
 
